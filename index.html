@@ -8,19 +8,35 @@
         /* 全体の基本設定 */
         body { font-family: "Helvetica Neue", Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f0f2f5; }
         
-        /* ヘッダー：伊勢丹風の濃紺デザイン */
-        header { background-color: #003366; color: white; padding: 20px 0; text-align: center; }
-        header h1 { margin: 0 0 10px 0; font-size: 1.8rem; }
+        /* ヘッダー */
+        header { background-color: #003366; color: white; padding: 25px 0; text-align: center; }
+        header h1 { margin: 0 0 15px 0; font-size: 1.8rem; }
         
-        /* ナビゲーションメニュー：横並び */
-        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; gap: 25px; margin: 0; }
-        nav ul li a { color: white; text-decoration: none; font-weight: bold; font-size: 0.95rem; }
-        nav ul li a:hover { text-decoration: underline; }
+        /* ナビゲーションメニュー：ここをきれいに整えました */
+        nav ul { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 20px; /* すべてのメニュー間隔を20pxで統一 */
+        }
+        nav ul li { display: inline-block; }
+        nav ul li a { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 0.9rem; 
+        }
+        /* インスタだけ色を変えてアクセントに */
+        .nav-insta { color: #E1306C !important; }
+        nav ul li a:hover { opacity: 0.7; }
 
         /* コンテンツエリア */
         .container { width: 90%; max-width: 800px; margin: 20px auto; }
         
-        /* 重要なお知らせエリア */
+        /* お知らせエリア */
         .news-card { background: #fff; padding: 15px 20px; margin-bottom: 20px; border-left: 5px solid #d32f2f; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .news-card h3 { margin: 0 0 5px 0; font-size: 1rem; color: #d32f2f; }
         .news-card ul { margin: 0; padding-left: 20px; font-size: 0.85rem; color: #333; }
@@ -31,33 +47,27 @@
         .tag { background: #ff5722; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
         .info { color: #555; font-size: 0.95rem; margin-top: 10px; }
 
-        /* フッター：暗めのグレーで引き締める */
+        /* フッター */
         footer { background-color: #333; color: white; text-align: center; padding: 30px 0; margin-top: 50px; }
         footer a { color: #ccc; text-decoration: none; margin: 0 10px; font-size: 0.85rem; }
-        footer a:hover { color: white; }
         footer p { font-size: 0.75rem; margin-top: 15px; color: #999; }
     </style>
 </head>
 <body>
 
-<!-- ヘッダーエリア -->
 <header>
     <h1>富山学生おトク活動</h1>
     <nav>
         <ul>
             <li><a href="index.html">ホーム</a></li>
             <li><a href="#shop-list">店舗情報</a></li>
-            <li><a href="contact.html">お問い合わせ</a></li>　　<li>
-    <a href="https://www.instagram.com/gourmet.toyama/" target="_blank" style="color: #E1306C; font-weight: bold; text-decoration: none;">
-        📸 Instagram
-    </a>
-</li>
+            <li><a href="contact.html">お問い合わせ</a></li>
+            <li><a href="https://www.instagram.com/gourmet.toyama/" target="_blank" class="nav-insta">📸 Instagram</a></li>
         </ul>
     </nav>
 </header>
 
 <div class="container">
-    <!-- 重要なお知らせ（伊勢丹風のリスト） -->
     <div class="news-card">
         <h3>📢 重要なお知らせ</h3>
         <ul>
@@ -66,7 +76,6 @@
         </ul>
     </div>
 
-    <!-- お店情報リスト（ここから） -->
     <div id="shop-list">
         <div class="shop-card">
             <span class="tag">学割</span>
@@ -80,10 +89,8 @@
             <p class="info">時給1,100円〜。オシャレな空間で働けます。学生多数在籍。</p>
         </div>
     </div>
-    <!-- お店情報リスト（ここまで） -->
 </div>
 
-<!-- フッターエリア -->
 <footer>
     <div>
         <a href="index.html">ホーム</a> |
