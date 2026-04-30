@@ -1,104 +1,14 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>富山学生おトク活動</title>
-    <style>
-        /* 全体の基本設定 */
-        body { font-family: "Helvetica Neue", Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f0f2f5; }
-        
-        /* ヘッダー */
-        header { background-color: #003366; color: white; padding: 25px 0; text-align: center; }
-        header h1 { margin: 0 0 15px 0; font-size: 1.8rem; }
-        
-        /* ナビゲーションメニュー：ここをきれいに整えました */
-        nav ul { 
-            list-style: none; 
-            padding: 0; 
-            margin: 0;
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            gap: 20px; /* すべてのメニュー間隔を20pxで統一 */
-        }
-        nav ul li { display: inline-block; }
-        nav ul li a { 
-            color: white; 
-            text-decoration: none; 
-            font-weight: bold; 
-            font-size: 0.9rem; 
-        }
-        /* インスタだけ色を変えてアクセントに */
-        .nav-insta { color: #E1306C !important; }
-        nav ul li a:hover { opacity: 0.7; }
-
-        /* コンテンツエリア */
-        .container { width: 90%; max-width: 800px; margin: 20px auto; }
-        
-        /* お知らせエリア */
-        .news-card { background: #fff; padding: 15px 20px; margin-bottom: 20px; border-left: 5px solid #d32f2f; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .news-card h3 { margin: 0 0 5px 0; font-size: 1rem; color: #d32f2f; }
-        .news-card ul { margin: 0; padding-left: 20px; font-size: 0.85rem; color: #333; }
-
-        /* お店情報のカード */
-        .shop-card { background: white; padding: 20px; margin-bottom: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h2 { margin-top: 0; color: #003366; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px; font-size: 1.4rem; }
-        .tag { background: #ff5722; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
-        .info { color: #555; font-size: 0.95rem; margin-top: 10px; }
-
-        /* フッター */
-        footer { background-color: #333; color: white; text-align: center; padding: 30px 0; margin-top: 50px; }
-        footer a { color: #ccc; text-decoration: none; margin: 0 10px; font-size: 0.85rem; }
-        footer p { font-size: 0.75rem; margin-top: 15px; color: #999; }
-    </style>
-</head>
-<body>
-
-<header>
-    <h1>富山学生おトク活動</h1>
-    <nav>
-        <ul>
-            <li><a href="index.html">ホーム</a></li>
-            <li><a href="#shop-list">店舗情報</a></li>
-            <li><a href="contact.html">お問い合わせ</a></li>
-            <li><a href="https://www.instagram.com/gourmet.toyama/" target="_blank" class="nav-insta">📸 Instagram</a></li>
-        </ul>
-    </nav>
-</header>
-
-<div class="container">
-    <div class="news-card">
-        <h3>📢 重要なお知らせ</h3>
-        <ul>
-            <li>2026/04/30：五福エリアの新規学割情報を追加しました！</li>
-            <li>2026/04/28：富山学生おトク活動サイトを公開しました。</li>
-        </ul>
+<section style="background-color: #fff; padding: 20px; margin-top: 40px; border-radius: 12px; font-size: 0.85rem; color: #666; border: 1px solid #e0e0e0;">
+    <h3 style="color: #003366; font-size: 1.1rem; margin-top: 0;">📋 サイトについて</h3>
+    
+    <div style="margin-bottom: 20px;">
+        <strong>【運営者情報】</strong><br>
+        運営：富山学生おトク活動 編集部（代表：東堂 葵）<br>
+        目的：富山県内の大学生・高専生に有益な学割・バイト情報を提供し、地域活性化を目指しています。
     </div>
 
-    <div id="shop-list">
-        <div class="shop-card">
-            <span class="tag">学割</span>
-            <h2>〇〇食堂（五福エリア）</h2>
-            <p class="info">学生証提示でから揚げ1個サービス！富大生に人気です。</p>
-        </div>
-
-        <div class="shop-card">
-            <span class="tag">バイト</span>
-            <h2>△△カフェ（環水公園前）</h2>
-            <p class="info">時給1,100円〜。オシャレな空間で働けます。学生多数在籍。</p>
-        </div>
-    </div>
-</div>
-
-<footer>
     <div>
-        <a href="index.html">ホーム</a> |
-        <a href="contact.html">お問い合わせ</a> |
-        <a href="#">利用規約</a>
+        <strong>【免責事項】</strong><br>
+        本サイトに掲載されている情報は、執筆時点のものです。学割内容やバイト条件は変更される可能性があるため、必ず各店舗の店頭や公式SNS等で最新情報をご確認ください。万が一、掲載情報によりトラブルが生じた場合でも、当サイトは一切の責任を負いかねます。
     </div>
-    <p>&copy; 2026 富山学生おトク活動</p>
-</footer>
-
-</body>
-</html>
+</section>
