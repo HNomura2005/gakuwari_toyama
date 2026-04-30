@@ -3,124 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>富山学生おトク活動</title>
+    <title>富山学生おトク活動 | 富山の大学生・高専生向け情報ポータル</title>
     <style>
-        /* --- デザイン設定 (CSS) --- */
-        body { font-family: "Helvetica Neue", Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f0f2f5; }
+        /* ==========================================
+           1. 全体の基本設定（プロ仕様）
+           ========================================== */
+        html { scroll-behavior: smooth; } /* なめらかなスクロール */
+        body { font-family: "Helvetica Neue", Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; }
         
-        /* ヘッダー：伊勢丹風の濃紺 */
-        header { background-color: #003366; color: white; padding: 25px 0; text-align: center; }
-        header h1 { margin: 0 0 15px 0; font-size: 1.8rem; }
-        
-        /* ナビゲーション */
-        nav ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; align-items: center; gap: 20px; }
-        nav ul li a { color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
-        .nav-insta { color: #E1306C !important; } /* インスタ用のピンク */
-        
-        /* メインコンテンツ枠 */
-        .container { width: 90%; max-width: 800px; margin: 20px auto; min-height: 60vh; }
-        
-        /* 各パーツの装飾 */
-        .news-card { background: #fff; padding: 15px 20px; margin-bottom: 20px; border-left: 5px solid #d32f2f; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .shop-card { background: white; padding: 20px; margin-bottom: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h2 { margin-top: 0; color: #003366; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px; font-size: 1.4rem; }
-        .tag { background: #ff5722; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
-        .info { color: #555; font-size: 0.95rem; margin-top: 10px; }
-        
-        /* サイト情報セクション */
-        .info-section { background-color: #fff; padding: 20px; margin-top: 40px; border-radius: 12px; font-size: 0.85rem; color: #666; border: 1px solid #e0e0e0; }
-        
+        /* ヘッダー（画面上部に固定） */
+        header { background-color: #003366; color: white; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 900px; margin: 0 auto; }
+        header h1 { margin: 0; font-size: 1.5rem; letter-spacing: 1px; }
+        nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 20px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: opacity 0.3s; }
+        nav ul li a:hover { opacity: 0.7; }
+        .nav-insta { color: #ff8fb3 !important; } /* ヘッダー上のインスタは少し明るいピンク */
+
+        /* メインビジュアル（ヒーローバナー） */
+        .hero { background: linear-gradient(135deg, #003366, #005aab); color: white; text-align: center; padding: 50px 20px; margin-bottom: 30px; }
+        .hero h2 { font-size: 2rem; margin: 0 0 10px 0; }
+        .hero p { font-size: 1rem; opacity: 0.9; margin: 0; }
+
+        /* コンテンツエリア */
+        .container { width: 90%; max-width: 900px; margin: 0 auto; min-height: 60vh; }
+
+        /* ==========================================
+           2. 各種コンポーネント（カード、ボタン等）
+           ========================================== */
+        /* エリアナビゲーション */
+        .area-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .area-btn { background: white; color: #003366; border: 2px solid #003366; padding: 8px 20px; border-radius: 25px; text-decoration: none; font-size: 0.9rem; font-weight: bold; transition: all 0.3s; }
+        .area-btn:hover { background: #003366; color: white; }
+
+        /* お知らせカード */
+        .news-card { background: #fff; padding: 20px; margin-bottom: 30px; border-left: 5px solid #d32f2f; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .news-card h3 { margin: 0 0 10px 0; font-size: 1.1rem; color: #d32f2f; }
+
+        /* マップエリア */
+        .map-section { margin-bottom: 40px; }
+        .map-section h2 { color: #003366; border-bottom: 2px solid #003366; padding-bottom: 10px; }
+        .map-container { width: 100%; height: 400px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); background-color: #eaeaea; display: flex; align-items: center; justify-content: center; }
+
+        /* お店カード（ホバーで浮き上がるアニメーション付き） */
+        .shop-list h2 { color: #003366; border-bottom: 2px solid #003366; padding-bottom: 10px; margin-top: 40px; }
+        .shop-card { background: white; padding: 25px; margin-bottom: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; border: 1px solid #eee; }
+        .shop-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .shop-card h3 { margin: 0 0 10px 0; color: #333; font-size: 1.4rem; }
+        .tag { background: #ff5722; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
+        .tag.job { background: #4caf50; } /* バイト用の緑色タグ */
+        .info { color: #555; font-size: 1rem; margin-top: 10px; }
+        .shop-link { display: inline-block; margin-top: 15px; color: #0066cc; font-size: 0.9rem; text-decoration: none; font-weight: bold; }
+        .shop-link:hover { text-decoration: underline; }
+
+        /* 掲載依頼バナー（CTA） */
+        .cta-banner { background: linear-gradient(135deg, #ff8c00, #ff5722); color: white; padding: 30px; border-radius: 12px; text-align: center; margin: 50px 0; box-shadow: 0 4px 10px rgba(255,87,34,0.3); }
+        .cta-banner h3 { margin: 0 0 10px 0; font-size: 1.5rem; }
+        .cta-btn { background: white; color: #ff5722; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px; transition: transform 0.2s; }
+        .cta-btn:hover { transform: scale(1.05); }
+
+        /* サイト情報・免責事項 */
+        .info-section { background-color: #fff; padding: 25px; margin-top: 40px; border-radius: 12px; font-size: 0.85rem; color: #666; border: 1px solid #e0e0e0; }
+        .info-section h3 { color: #003366; font-size: 1.1rem; margin-top: 0; }
+
         /* フッター */
-        footer { background-color: #333; color: white; text-align: center; padding: 30px 0; margin-top: 50px; }
-        footer a { color: #ccc; text-decoration: none; margin: 0 10px; font-size: 0.85rem; }
-        footer p { font-size: 0.75rem; margin-top: 15px; color: #999; }
+        footer { background-color: #222; color: white; text-align: center; padding: 40px 0; margin-top: 50px; }
+        footer a { color: #ccc; text-decoration: none; margin: 0 15px; font-size: 0.9rem; }
+        footer a:hover { color: white; }
+        footer p { font-size: 0.8rem; margin-top: 20px; color: #777; }
     </style>
 </head>
 <body>
 
-    <!-- ==========================================
-         ヘッダーエリア
-         ========================================== -->
+    <!-- ヘッダー -->
     <header>
-        <h1>富山学生おトク活動</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">ホーム</a></li>
-                <li><a href="#shop-list">店舗情報</a></li>
-                <li><a href="contact.html">お問い合わせ</a></li>
-                <li><a href="https://www.instagram.com/gourmet.toyama/" target="_blank" class="nav-insta">📸 Instagram</a></li>
-            </ul>
-        </nav>
+        <div class="header-inner">
+            <h1>富山学生おトク活動</h1>
+            <nav>
+                <ul>
+                    <li><a href="#map">マップ</a></li>
+                    <li><a href="#shop-list">店舗情報</a></li>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                    <li><a href="https://www.instagram.com/gourmet.toyama/" target="_blank" class="nav-insta">📸 Instagram</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
+
+    <!-- メインビジュアル -->
+    <div class="hero">
+        <h2>富山の学生生活を、もっと賢く。</h2>
+        <p>大学生・高専生のための学割＆おトクなバイト情報まとめ</p>
+    </div>
 
     <div class="container">
 
-        <!-- お知らせセクション -->
+        <!-- お知らせ -->
         <div class="news-card">
-            <h3>📢 重要なお知らせ</h3>
-            <!-- エリアナビ -->
-<div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
-    <a href="#shop-list" style="background: #003366; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 0.85rem;">📍 全エリア</a>
-    <a href="#gofuku" style="background: white; color: #003366; border: 1px solid #003366; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 0.85rem;">五福</a>
-    <a href="#ekimae" style="background: white; color: #003366; border: 1px solid #003366; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 0.85rem;">富山駅前</a>
-    <a href="#kosugi" style="background: white; color: #003366; border: 1px solid #003366; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 0.85rem;">小杉・射水</a>
-</div>
-            <ul style="margin: 0; padding-left: 20px; font-size: 0.85rem;">
+            <h3>📢 最新のお知らせ</h3>
+            <ul style="margin: 0; padding-left: 20px; font-size: 0.95rem;">
                 <li>2026/04/30：五福エリアの新規学割情報を追加しました！</li>
-                <li>2026/04/28：富山学生おトク活動サイトを公開しました。</li>
+                <li>2026/04/28：富山学生おトク活動サイトを本格オープンしました。</li>
             </ul>
         </div>
 
-        <!-- ==========================================
-             お店リスト開始
-             ========================================== -->
-        <div id="shop-list">
+        <!-- エリアナビゲーション -->
+        <div class="area-nav">
+            <a href="#gofuku" class="area-btn">五福エリア</a>
+            <a href="#ekimae" class="area-btn">富山駅前</a>
+            <a href="#kosugi" class="area-btn">小杉・射水</a>
+            <a href="#other" class="area-btn">その他エリア</a>
+        </div>
 
-            <!-- 店舗1 -->
+        <!-- マップ埋め込みエリア -->
+        <section id="map" class="map-section">
+            <h2>📍 おトク活動マップ</h2>
+            <div class="map-container">
+                <!-- 【注意】あとでここにGoogleマイマップの<iframe>を貼り付けます -->
+                <p style="color: #666;">（ここにGoogleマップが表示されます）</p>
+            </div>
+        </section>
+
+        <!-- 店舗リスト -->
+        <section id="shop-list" class="shop-list">
+            
+            <h2 id="gofuku">🎓 五福エリア（富山大学周辺）</h2>
+            
+            <!-- 店舗カード1 -->
             <div class="shop-card">
                 <span class="tag">学割</span>
-                <h2>〇〇食堂（五福エリア）</h2>
-                <p class="info">学生証提示でから揚げ1個サービス！富大生に人気です。</p>
+                <h3>〇〇食堂</h3>
+                <p class="info"><strong>【特典】</strong>学生証提示でから揚げ1個サービス！<br>
+                富大生のお腹を満たす定番スポット。安くてボリューム満点です。</p>
+                <a href="#" class="shop-link">📍 Googleマップで見る</a>
             </div>
 
-            <!-- 店舗2 -->
+            <h2 id="ekimae">🚃 富山駅前エリア</h2>
+
+            <!-- 店舗カード2 -->
             <div class="shop-card">
-                <span class="tag">バイト</span>
-                <h2>△△カフェ（環水公園前）</h2>
-                <p class="info">時給1,100円〜。オシャレな空間で働けます。学生多数在籍。</p>
+                <span class="tag job">バイト</span>
+                <h3>△△カフェ 環水公園前店</h3>
+                <p class="info"><strong>【条件】</strong>時給1,100円〜 / まかない有り<br>
+                オシャレな空間で働けます。現在、他大学の学生も多数在籍中！</p>
+                <a href="https://www.instagram.com/gourmet.toyama/" target="_blank" class="shop-link" style="color: #E1306C;">📸 Instagramで雰囲気を見る</a>
             </div>
 
-        </div>
-        <!-- お店リスト終了 -->
+        </section>
 
-        <!-- ==========================================
-             サイトについて（運営情報・免責事項）
-             ========================================== -->
+        <!-- 掲載依頼バナー -->
+        <div class="cta-banner">
+            <h3>学生を応援したい店舗様へ</h3>
+            <p>貴店の学割情報やアルバイト募集を無料で掲載しませんか？<br>富山を盛り上げるため、ぜひご協力をお願いいたします。</p>
+            <a href="contact.html" class="cta-btn">✉️ 掲載を依頼する</a>
+        </div>
+
+        <!-- サイト情報・免責事項 -->
         <section class="info-section">
             <h3>📋 サイトについて</h3>
             <div style="margin-bottom: 20px;">
                 <strong>【運営者情報】</strong><br>
                 運営：富山学生おトク活動 編集部（代表：）<br>
-                目的：富山県内の大学生に有益な学割・バイト情報を提供し、地域活性化を目指しています。
+                目的：富山県内の大学生・高専生に有益な学割・バイト情報を提供し、地域活性化を目指しています。
             </div>
             <div>
                 <strong>【免責事項】</strong><br>
-                本サイトに掲載されている情報は執筆時点のものです。学割内容やバイト条件は変更される可能性があるため、必ず店頭等で最新情報をご確認ください。万が一トラブルが生じた場合でも、当サイトは一切の責任を負いかねます。
+                本サイトに掲載されている情報は執筆時点のものです。学割内容やバイト条件は変更される可能性があるため、必ず店頭や公式SNS等で最新情報をご確認ください。万が一、掲載情報によりトラブルが生じた場合でも、当サイトは一切の責任を負いかねます。
             </div>
         </section>
 
-    </div> <!-- container終了 -->
+    </div>
 
-    <!-- ==========================================
-         フッターエリア
-         ========================================== -->
+    <!-- フッター -->
     <footer>
         <div>
-            <a href="index.html">ホーム</a> |
-            <a href="contact.html">お問い合わせ</a> |
-            <a href="#">利用規約</a>
+            <a href="#">ページトップへ戻る</a> |
+            <a href="contact.html">お問い合わせ</a>
         </div>
-        <p>&copy; 2026 富山学生おトク活動</p>
+        <p>&copy; 2026 富山学生おトク活動 編集部</p>
     </footer>
 
 </body>
