@@ -1,181 +1,323 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <!-- ==========================================
+         【1. サイトの裏側設定（メタデータ）】
+         ブラウザや検索エンジンにサイトの情報を伝えます。
+         ========================================== -->
     <meta charset="UTF-8">
+    
+    <!-- スマホ対応のおまじない。画面幅に合わせて表示を調整します -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>富山学生おトク活動 | ダークモード対応</title>
+    
+    <title>富山学生おトク活動 | スクロールアニメ＆ダークモード搭載</title>
+
+    <!-- ==========================================
+         【2. デザイン設定（CSS）】
+         文字の色や大きさ、レイアウトをここで整えます。
+         ========================================== -->
     <style>
-        /* ==========================================
-           1. 基本設定 ＆ ライトモード（標準）の配色
-           ========================================== */
-        html { scroll-behavior: smooth; }
-        /* :root はサイト全体で使う「色の変数」を定義する場所です */
+        /* --- ページ全体のなめらかな動き --- */
+        html { 
+            scroll-behavior: smooth; /* 目次に飛ぶとき、フワッと移動する */
+        }
+
+        /* --- 🎨 色の変数宣言（ライトモード） --- 
+           :rootに書いておくと、後から「--bg-color」という名前で使い回せます。
+           ここで色を管理すると、デザイン変更が超ラクになります。 */
         :root {
-            --bg-color: #f4f7f6;
-            --text-color: #333;
-            --header-bg: #003366;
-            --card-bg: #ffffff;
-            --border-color: #e0e0e0;
-            --link-color: #0066cc;
-            --heading-color: #003366;
-            --btn-text: #003366;
-            --btn-bg: #ffffff;
+            --bg-color: #f4f7f6;       /* 全体の背景色（薄いグレー） */
+            --text-color: #333333;     /* 基本の文字色（濃いグレー） */
+            --header-bg: #003366;      /* ヘッダーの背景（伊勢丹風の濃紺） */
+            --card-bg: #ffffff;        /* お店カードの背景（白） */
+            --border-color: #e0e0e0;   /* 枠線の色 */
+            --link-color: #0066cc;     /* リンクの文字色（青） */
+            --heading-color: #003366;  /* 見出しの文字色 */
+            --btn-text: #003366;       /* エリアボタンの文字色 */
+            --btn-bg: #ffffff;         /* エリアボタンの背景色 */
         }
 
-        /* ==========================================
-           2. ダークモード時の配色（ここが切り替わります）
-           ========================================== */
+        /* --- 🌙 色の変数宣言（ダークモード） --- 
+           bodyに「dark-mode」という印がついた瞬間、上の色が以下の色に上書きされます！ */
         body.dark-mode {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --header-bg: #1a1a1a;
-            --card-bg: #1e1e1e;
-            --border-color: #333333;
-            --link-color: #66b2ff;
-            --heading-color: #90caf9;
-            --btn-text: #e0e0e0;
-            --btn-bg: #333333;
+            --bg-color: #121212;       /* 全体の背景色（ほぼ黒） */
+            --text-color: #e0e0e0;     /* 基本の文字色（明るいグレー） */
+            --header-bg: #1a1a1a;      /* ヘッダーの背景（暗いグレー） */
+            --card-bg: #1e1e1e;        /* お店カードの背景（少し明るい黒） */
+            --border-color: #333333;   /* 枠線の色（暗いグレー） */
+            --link-color: #66b2ff;     /* リンクの文字色（明るい青） */
+            --heading-color: #90caf9;  /* 見出しの文字色（水色） */
+            --btn-text: #e0e0e0;       /* エリアボタンの文字色 */
+            --btn-bg: #333333;         /* エリアボタンの背景色 */
         }
 
-        /* ==========================================
-           3. デザイン設定（変数を使って色を指定）
-           ========================================== */
-        body { font-family: "Helvetica Neue", Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; 
-               background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s, color 0.3s; }
+        /* --- 基本のスタイル --- */
+        body { 
+            font-family: "Helvetica Neue", Arial, sans-serif; /* 読みやすいフォント */
+            line-height: 1.6; /* 行間を少し広げて読みやすく */
+            margin: 0; padding: 0; 
+            background-color: var(--bg-color); /* 変数を使って色を指定 */
+            color: var(--text-color); 
+            transition: background-color 0.3s, color 0.3s; /* 色が変わるとき、0.3秒かけてフワッと変える */
+        }
         
-        header { background-color: var(--header-bg); color: white; padding: 15px 0; position: sticky; top: 0; z-index: 1000; transition: background-color 0.3s; }
+        /* --- ヘッダー（画面上のメニューバー） --- */
+        header { 
+            background-color: var(--header-bg); 
+            color: white; 
+            padding: 15px 0; 
+            position: sticky; top: 0; z-index: 1000; /* スクロールしても上に固定（追従）させる設定 */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 下に少し影をつける */
+            transition: background-color 0.3s; 
+        }
         .header-inner { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 900px; margin: 0 auto; }
         header h1 { margin: 0; font-size: 1.5rem; }
         
+        /* メニューの横並び設定 */
         nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 20px; align-items: center; }
         nav ul li a { color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
-        .nav-insta { color: #ff8fb3 !important; }
+        .nav-insta { color: #ff8fb3 !important; } /* インスタだけ目立つピンク色に */
         
-        /* ダークモード切り替えボタンのデザイン */
-        #darkModeToggle { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: white; padding: 0; transition: transform 0.2s; }
-        #darkModeToggle:hover { transform: scale(1.2); }
+        /* 月/太陽 切り替えボタンの装飾 */
+        #darkModeToggle { 
+            background: none; border: none; font-size: 1.5rem; cursor: pointer; color: white; padding: 0; 
+            transition: transform 0.2s; /* ホバー時に動かす準備 */
+        }
+        #darkModeToggle:hover { transform: scale(1.2); } /* マウスを乗せたら1.2倍に大きくする */
 
-        .hero { background: linear-gradient(135deg, var(--header-bg), #005aab); color: white; text-align: center; padding: 50px 20px; margin-bottom: 30px; }
+        /* --- メインビジュアル（一番上の看板） --- */
+        .hero { 
+            background: linear-gradient(135deg, var(--header-bg), #005aab); /* 斜めのグラデーション */
+            color: white; text-align: center; padding: 60px 20px; margin-bottom: 30px; 
+        }
         .hero h2 { font-size: 2rem; margin: 0 0 10px 0; }
         
+        /* --- 全体の枠組み（コンテンツが広がりすぎないようにする） --- */
         .container { width: 90%; max-width: 900px; margin: 0 auto; min-height: 60vh; }
         
+        /* --- エリアボタン --- */
         .area-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
         .area-btn { background: var(--btn-bg); color: var(--btn-text); border: 2px solid var(--border-color); padding: 8px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; transition: all 0.3s; }
         .area-btn:hover { background: var(--heading-color); color: var(--bg-color); }
 
-        .news-card, .shop-card, .info-section { background: var(--card-bg); padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid var(--border-color); transition: background-color 0.3s, border-color 0.3s; }
-        .news-card { border-left: 5px solid #d32f2f; }
+        /* --- 各種カード（お知らせ、お店、サイト情報） --- */
+        .news-card, .shop-card, .info-section { 
+            background: var(--card-bg); padding: 25px; margin-bottom: 25px; border-radius: 12px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid var(--border-color); 
+            transition: background-color 0.3s, border-color 0.3s, transform 0.3s, box-shadow 0.3s; 
+        }
+        .news-card { border-left: 5px solid #d32f2f; } /* お知らせだけ左側に赤いラインを引く */
         
+        /* お店カードにマウスを乗せたとき、少し浮き上がるアニメーション */
         .shop-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
-        .shop-list h2 { color: var(--heading-color); border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-top: 40px; transition: color 0.3s; }
+        
+        /* --- 見出しや文字の装飾 --- */
+        .shop-list h2 { color: var(--heading-color); border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-top: 50px; }
         h3 { color: var(--text-color); margin: 0 0 10px 0; font-size: 1.4rem; }
-        
         .tag { background: #ff5722; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
-        .tag.job { background: #4caf50; }
-        
+        .tag.job { background: #4caf50; } /* バイトタグは緑色に上書き */
         .info { font-size: 1rem; margin-top: 10px; color: var(--text-color); opacity: 0.9; }
-        .shop-link { display: inline-block; margin-top: 15px; color: var(--link-color); font-size: 0.9rem; text-decoration: none; font-weight: bold; }
-        
-        .cta-banner { background: linear-gradient(135deg, #ff8c00, #ff5722); color: white; padding: 30px; border-radius: 12px; text-align: center; margin: 50px 0; }
-        .cta-btn { background: white; color: #ff5722; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px; }
 
+        /* --- マップエリア --- */
+        .map-section { margin-bottom: 40px; }
+        .map-container { width: 100%; height: 400px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); background-color: var(--card-bg); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); }
+
+        /* --- 掲載依頼バナー --- */
+        .cta-banner { background: linear-gradient(135deg, #ff8c00, #ff5722); color: white; padding: 30px; border-radius: 12px; text-align: center; margin: 50px 0; }
+        .cta-btn { background: white; color: #ff5722; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px; transition: transform 0.2s; }
+        .cta-btn:hover { transform: scale(1.05); }
+
+        /* --- フッター --- */
         footer { background-color: #222; color: white; text-align: center; padding: 40px 0; margin-top: 50px; }
         footer a { color: #ccc; text-decoration: none; margin: 0 15px; font-size: 0.9rem; }
+
+        /* ==========================================
+           【3. スクロールアニメーションの準備】
+           ========================================== */
+        /* 初期状態：見えないようにして（opacity: 0）、30px下にずらしておく */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* 0.8秒かけて元に戻る設定 */
+        }
+        /* 発火状態：JavaScriptでこの「is-visible」が付与されると、くっきり表示されて元の位置に戻る */
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
 
+    <!-- ==========================================
+         【ヘッダー領域】
+         ========================================== -->
     <header>
         <div class="header-inner">
             <h1>富山学生おトク活動</h1>
             <nav>
                 <ul>
+                    <li><a href="#map">マップ</a></li>
                     <li><a href="#shop-list">店舗情報</a></li>
                     <li><a href="contact.html">お問い合わせ</a></li>
                     <li><a href="https://www.instagram.com/gourmet.toyama/" target="_blank" class="nav-insta">📸</a></li>
-                    <!-- ダークモード切り替えボタン -->
+                    <!-- 月/太陽の切り替えボタン -->
                     <li><button id="darkModeToggle" title="背景色を切り替える">🌙</button></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <div class="hero">
+    <!-- 看板（ヒーローエリア） ※アニメーションさせるため fade-in を追加 -->
+    <div class="hero fade-in">
         <h2>富山の学生生活を、もっと賢く。</h2>
         <p>大学生・高専生のための学割＆おトクなバイト情報まとめ</p>
     </div>
 
+    <!-- ==========================================
+         【メインコンテンツ領域】
+         ========================================== -->
     <div class="container">
-        <!-- エリアナビゲーション -->
-        <div class="area-nav">
+        
+        <!-- エリア絞り込みボタン -->
+        <div class="area-nav fade-in">
             <a href="#gofuku" class="area-btn">五福エリア</a>
             <a href="#ekimae" class="area-btn">富山駅前</a>
         </div>
 
-        <div class="news-card">
+        <!-- 最新のお知らせ -->
+        <div class="news-card fade-in">
             <h3 style="color: #d32f2f;">📢 最新のお知らせ</h3>
             <ul>
-                <li>2026/04/30：ダークモード（夜間モード）に対応しました！右上のボタンでお試しください。</li>
+                <li>2026/04/30：スクロールアニメーションとダークモードを実装しました。</li>
             </ul>
         </div>
 
+        <!-- マップ埋め込みエリア（Googleマイマップ用） -->
+        <section id="map" class="map-section fade-in">
+            <h2 style="color: var(--heading-color); border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">📍 おトク活動マップ</h2>
+            <div class="map-container">
+                <p style="color: #666;">（ここにGoogleマップのiframeコードを貼り付けます）</p>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             【お店リスト領域】
+             ========================================== -->
         <section id="shop-list" class="shop-list">
-            <h2 id="gofuku">🎓 五福エリア（富山大学周辺）</h2>
-            <div class="shop-card">
+            
+            <!-- 五福エリア -->
+            <h2 id="gofuku" class="fade-in">🎓 五福エリア（富山大学周辺）</h2>
+            
+            <div class="shop-card fade-in">
                 <span class="tag">学割</span>
                 <h3>〇〇食堂</h3>
                 <p class="info">学生証提示でから揚げ1個サービス！富大生のお腹を満たす定番スポット。</p>
             </div>
 
-            <h2 id="ekimae">🚃 富山駅前エリア</h2>
-            <div class="shop-card">
+            <!-- 富山駅前エリア -->
+            <h2 id="ekimae" class="fade-in">🚃 富山駅前エリア</h2>
+            
+            <div class="shop-card fade-in">
                 <span class="tag job">バイト</span>
                 <h3>△△カフェ 環水公園前店</h3>
                 <p class="info">時給1,100円〜 / まかない有り<br>オシャレな空間で働けます。他大学の学生も多数在籍中！</p>
             </div>
         </section>
 
-        <section class="info-section">
+        <!-- ==========================================
+             【掲載依頼・サイト情報】
+             ========================================== -->
+        <!-- お店の人向けのバナー -->
+        <div class="cta-banner fade-in">
+            <h3>学生を応援したい店舗様へ</h3>
+            <p>貴店の学割情報やアルバイト募集を無料で掲載しませんか？</p>
+            <a href="contact.html" class="cta-btn">✉️ 掲載を依頼する</a>
+        </div>
+
+        <!-- 免責事項 -->
+        <section class="info-section fade-in">
             <h3>📋 サイトについて</h3>
             <div>
-                <strong>【運営】</strong> 富山学生おトク活動 編集部（代表：）<br>
+                <strong>【運営】</strong> 富山学生おトク活動 編集部（代表：東堂 葵）<br>
                 <strong>【免責事項】</strong> 情報は執筆時点のものです。必ず店頭等で最新情報をご確認ください。
             </div>
         </section>
     </div>
 
+    <!-- フッター -->
     <footer>
+        <a href="#">ページトップへ戻る</a> |
+        <a href="contact.html">お問い合わせ</a>
         <p>&copy; 2026 富山学生おトク活動 編集部</p>
     </footer>
 
     <!-- ==========================================
-         4. JavaScript (ダークモードの動きを制御するプログラム)
+         【4. プログラム（JavaScript）】
+         動きやデータ保存などの「頭脳」を担当します。
          ========================================== -->
     <script>
-        // ボタンと、画面全体(body)をプログラムで操るために取得
+        /* ----------------------------------------------------
+           ① ダークモードの切り替え・記憶システム
+           ---------------------------------------------------- */
+        // HTMLの中から、ボタンと画面全体（body）を見つけて変数に入れます
         const btn = document.getElementById("darkModeToggle");
         const body = document.body;
 
-        // 【記憶の呼び出し】過去にダークモードにした記録があれば、最初から黒くする
+        // 【ページを開いた時の処理】
+        // ブラウザの記憶（localStorage）を見て、「theme」が「dark」だった場合…
         if (localStorage.getItem("theme") === "dark") {
-            body.classList.add("dark-mode");
-            btn.textContent = "☀️"; // ボタンを太陽にする
+            body.classList.add("dark-mode"); // 最初から画面を黒くする
+            btn.textContent = "☀️"; // ボタンを太陽マークにしておく
         }
 
-        // ボタンがクリックされたときの処理
+        // 【ボタンがクリックされた時の処理】
         btn.addEventListener("click", function() {
-            // bodyに「dark-mode」という印（クラス）を付け外しする
+            // bodyの「dark-mode」というクラス（印）を、つけたり外したりする
             body.classList.toggle("dark-mode");
 
-            // 印がついた（＝黒くなった）かどうかで、If文で分岐
+            // 印がついた（つまり黒くなった）場合
             if (body.classList.contains("dark-mode")) {
-                btn.textContent = "☀️"; // 戻すための太陽アイコン
-                localStorage.setItem("theme", "dark"); // スマホに「黒くしたよ」と記憶させる
-            } else {
-                btn.textContent = "🌙"; // 夜にするための月アイコン
-                localStorage.setItem("theme", "light"); // スマホの記憶を「白」に戻す
+                btn.textContent = "☀️"; // 戻すために太陽マークにする
+                localStorage.setItem("theme", "dark"); // 「黒」と記憶させる
+            } 
+            // 印が外れた（つまり白くなった）場合
+            else {
+                btn.textContent = "🌙"; // 夜にするために月マークにする
+                localStorage.setItem("theme", "light"); // 「白」と記憶させる
             }
+        });
+
+        /* ----------------------------------------------------
+           ② スクロールアニメーション（交差監視API）
+           画面の中に要素が入ってきたら、フワッと表示させます。
+           ---------------------------------------------------- */
+        // センサーの感度設定
+        const observerOptions = {
+            root: null, // 画面全体をセンサー領域とする
+            rootMargin: '0px',
+            threshold: 0.15 // 要素が「15%」画面の中に入ったら反応する
+        };
+
+        // センサー本体の作成（反応した時にどうするかを定義）
+        const observer = new IntersectionObserver((entries, observer) => {
+            // 複数の要素が同時に入ってくるかもしれないので、1つずつチェックする
+            entries.forEach(entry => {
+                // もし画面内に要素が入ってきたら
+                if (entry.isIntersecting) {
+                    // その要素に「is-visible」というクラスを追加（これでCSSのアニメーションが発動！）
+                    entry.target.classList.add('is-visible'); 
+                    
+                    // 一度表示したら、もう監視をやめる（スクロールのたびに無駄な計算をさせないため）
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // HTMLの中から「fade-in」というクラスがついた要素を全て探し出し、
+        // ひとつずつセンサー（observer）に取り付けて監視をスタートさせる
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
         });
     </script>
 </body>
